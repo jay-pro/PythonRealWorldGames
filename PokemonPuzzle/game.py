@@ -5,8 +5,8 @@ import random #pip install random hoặc random2
 import pygame
 
 SCREENSIZE = (640, 640)
-PRICTURE_ROOT_DIR = os.path.join(os.getcwd(),'resources/pictures')
-FONTPATH = os.path.join(os.getcwd(),'resources/font/FZSTK.TTF')
+PICTURE_ROOT_DIR = os.path.join(os.getcwd(),'D:/18110168_GITHUBS/PythonRealWorldGames/PokemonPuzzle/resources/pictures')
+FONTPATH = os.path.join(os.getcwd(),'D:/18110168_GITHUBS/PythonRealWorldGames/PokemonPuzzle/resources/font/FZSTK.TTF')
 BACKGROUNDCOLOR = (255,255,255)
 RED = (255,0,0)
 BLUE = (0,0,255)
@@ -47,7 +47,8 @@ def CreateBoard(num_rows, num_cols, num_cells):
     for i in range(num_cells): board.append(i)
     blank_cell_idx = num_cells - 1
     board[blank_cell_idx] = -1
-    for i in range(cfg.RANDNUM):
+    #for i in range(cfg.RANDNUM):
+    for i in range(RANDNUM):
         direction = random.randint(0,3)
         if direction == 0: blank_cell_idx = moveL(board, blank_cell_idx, num_cols)
         elif direction == 1: blank_cell_idx = moveR(board, blank_cell_idx, num_cols)
@@ -61,8 +62,10 @@ def GetImagePath(rootdir):
     return os.path.join(rootdir, random.choice(imagenames))
 
 def ShowEndInterface(screen, width, height):
-    screen.fill(cfg.BACKGROUNDCOLOR)
-    font = pygame.font.Font(cfg.FONTPATH, width//15)
+    #screen.fill(cfg.BACKGROUNDCOLOR)
+    screen.fill(BACKGROUNDCOLOR)
+    #font = pygame.font.Font(cfg.FONTPATH, width//15)
+    font = pygame.font.Font(FONTPATH, width//15)
     title = font.render('Goodjob! You won!', True, (233,150,122))
     rect = title.get_rect()
     rect.midtop = (width/2, height/2.5)
@@ -76,12 +79,18 @@ def ShowEndInterface(screen, width, height):
             pygame.display.update()
 
 def ShowStartInterface(screen, width, height):
-    screen.fill(cfg.BACKGROUNDCOLOR)
-    tfont = pygame.font.Font(cfg.FONTPATH, width//4)
-    cfont = pygame.font.Font(cfg.FONTPATH, width//20)
-    title = tfont.render('Puzzle', True, cfg.RED)
-    content1 = cfont.render("Press H,M or L to choose your puzzle", True, cfg.BLUE)
-    content2 = cfont.render("H- 5x5, M- 4x4, L- 3x3", True, cfg.BLUE)
+    #screen.fill(cfg.BACKGROUNDCOLOR)
+    screen.fill(BACKGROUNDCOLOR)
+    #tfont = pygame.font.Font(cfg.FONTPATH, width//4)
+    tfont = pygame.font.Font(FONTPATH, width//4)
+    #cfont = pygame.font.Font(cfg.FONTPATH, width//20)
+    cfont = pygame.font.Font(FONTPATH, width//20)
+    #title = tfont.render('Puzzle', True, cfg.RED)
+    title = tfont.render('Puzzle', True, RED)
+    #content1 = cfont.render("Press H,M or L to choose your puzzle", True, cfg.BLUE)
+    content1 = cfont.render("Press H,M or L to choose your puzzle", True, BLUE)
+    #content2 = cfont.render("H- 5x5, M- 4x4, L- 3x3", True, cfg.BLUE)
+    content2 = cfont.render("H- 5x5, M- 4x4, L- 3x3", True, BLUE)
     trect = title.get_rect()
     trect.midtop = (width/2, height/10)
     crect1 = content1.get_rect()
@@ -106,11 +115,14 @@ def main():
     pygame.init()
     clock = pygame.time.Clock()
     
-    game_img_used = pygame.image.load(GetImagePath(cfg.PICTURE_ROOT_DIR))
-    game_img_used = pygame.transform.scale(game_img_used, cfg.SCREENSIZE)
+    #game_img_used = pygame.image.load(GetImagePath(cfg.PICTURE_ROOT_DIR))
+    game_img_used = pygame.image.load(GetImagePath(PICTURE_ROOT_DIR))
+    #game_img_used = pygame.transform.scale(game_img_used, cfg.SCREENSIZE)
+    game_img_used = pygame.transform.scale(game_img_used, SCREENSIZE)
     game_img_used_rect = game_img_used.get_rect()
 
-    screen = pygame.display.set_mode(cfg.SCREENSIZE)
+    #screen = pygame.display.set_mode(cfg.SCREENSIZE)
+    screen = pygame.display.set_mode(SCREENSIZE)
     pygame.display.set_caption("Pokemon")
 
     size = ShowStartInterface(screen, game_img_used_rect.width, game_img_used_rect.height)
@@ -162,7 +174,8 @@ def main():
             game_board[blank_cell_idx] = num_cells - 1
             is_running = False
 
-        screen.fill(cfg.BACKGROUNDCOLOR)
+        #screen.fill(cfg.BACKGROUNDCOLOR)
+        screen.fill(BACKGROUNDCOLOR)
         for i in range(num_cells):
             if game_board[i] == -1:
                 continue
@@ -175,12 +188,15 @@ def main():
             screen.blit(game_img_used, rect, img_area)
 
         for i in range(num_cols+1):
-            pygame.draw.line(screen, cfg.BLACK, (i*cell_width,0), (i*cell_width, game_img_used_rect.height))
+            #pygame.draw.line(screen, cfg.BLACK, (i*cell_width,0), (i*cell_width, game_img_used_rect.height))
+            pygame.draw.line(screen, BLACK, (i*cell_width,0), (i*cell_width, game_img_used_rect.height))
         for i in range(num_rows+1):
-            pygame.draw.line(screen, cfg.BLACK, (i*cell_height,0), (game_img_used_rect.width, i*cell_height))
+            #pygame.draw.line(screen, cfg.BLACK, (i*cell_height,0), (game_img_used_rect.width, i*cell_height))
+            pygame.draw.line(screen, BLACK, (i*cell_height,0), (game_img_used_rect.width, i*cell_height))
 
         pygame.display.update()
-        clock.tick(cfg.FPS)
+        #clock.tick(cfg.FPS)
+        clock.tick(FPS)
 
     ShowStartInterface(screen, game_img_used_rect.width, game_img_used_rect.height)                  
 
