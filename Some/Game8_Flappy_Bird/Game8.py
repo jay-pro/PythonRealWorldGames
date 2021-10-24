@@ -1,9 +1,3 @@
-'''
-Created on Apr 6, 2021
-
-@author: martinyanev
-'''
-
 import cfg
 import sys
 import random
@@ -128,27 +122,5 @@ if __name__ == '__main__':
     while True:
         main() 
             
-            
-    
-            
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+   
+   

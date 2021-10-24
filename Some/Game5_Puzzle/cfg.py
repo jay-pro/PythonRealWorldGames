@@ -2,9 +2,9 @@ import os
 
 SCREENSIZE = (640, 640)
 
-PICTURE_ROOT_DIR = os.path.join(os.getcwd(), 'resources/pictures')
+PICTURE_ROOT_DIR = os.path.join(os.getcwd(), 'D:/18110168_GITHUBS/PythonRealWorldGames/Some/Game5_Puzzle/resources/pictures')
 
-FONTPATH = os.path.join(os.getcwd(), 'resources/font/FZSTK.TTF')
+FONTPATH = os.path.join(os.getcwd(), 'D:/18110168_GITHUBS/PythonRealWorldGames/Some/Game5_Puzzle/resources/font/FZSTK.TTF')
 
 BACKGROUNDCOLOR = (255, 255, 255)
 RED = (255, 0, 0)

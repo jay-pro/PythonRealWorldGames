@@ -3,12 +3,6 @@ import sys
 import cfg
 import random
 import pygame
-#from pox.shutils import rootdir
-#from PIL.ImageChops import screen
-#from pickle import TRUE
-#from _xxsubinterpreters import is_running
-#from cmath import rect
-
 
 def isGameOver(board, size):
     assert isinstance(size, int)
@@ -84,9 +78,9 @@ def ShowStartInterface(screen, width, height):
     screen.fill(cfg.BACKGROUNDCOLOR)
     tfont = pygame.font.Font(cfg.FONTPATH, width//4)
     cfont = pygame.font.Font(cfg.FONTPATH, width//20)
-    title = tfont.render('拼图游戏', True, cfg.RED)
-    content1 = cfont.render('按H或M或L键开始游戏', True, cfg.BLUE)
-    content2 = cfont.render('H为5*5模式, M为4*4模式, L为3*3模式', True, cfg.BLUE)
+    title = tfont.render('Pokemon Puzzle', True, cfg.RED)
+    content1 = cfont.render('Press H,M,L buttons to choose the size of puzzle', True, cfg.BLUE)
+    content2 = cfont.render('H- 5x5, M- 4x4, L- 3x3', True, cfg.BLUE)
     trect = title.get_rect()
     trect.midtop = (width/2, height/10)
     crect1 = content1.get_rect()
@@ -107,42 +101,38 @@ def ShowStartInterface(screen, width, height):
                 elif event.key == ord('h'): return 5
         pygame.display.update()
 
-
-'''主函数'''
 def main():
-    # 初始化
     pygame.init()
     clock = pygame.time.Clock()
-    # 加载图片
+
     game_img_used = pygame.image.load(GetImagePath(cfg.PICTURE_ROOT_DIR))
     game_img_used = pygame.transform.scale(game_img_used, cfg.SCREENSIZE)
     game_img_used_rect = game_img_used.get_rect()
-    # 设置窗口
     screen = pygame.display.set_mode(cfg.SCREENSIZE)
-    pygame.display.set_caption('拼图游戏 —— Charles的皮卡丘')
-    # 游戏开始界面
+    pygame.display.set_caption('Pokemon Puzzle Game')
+    
     size = ShowStartInterface(screen, game_img_used_rect.width, game_img_used_rect.height)
     assert isinstance(size, int)
     num_rows, num_cols = size, size
     num_cells = size * size
-    # 计算Cell大小
+
     cell_width = game_img_used_rect.width // num_cols
     cell_height = game_img_used_rect.height // num_rows
-    # 避免初始化为原图
+    
     while True:
         game_board, blank_cell_idx = CreateBoard(num_rows, num_cols, num_cells)
         if not isGameOver(game_board, size):
             break
-    # 游戏主循环
+    
     is_running = True
     while is_running:
-        # --事件捕获
+        
         for event in pygame.event.get():
-            # ----退出游戏
+            
             if (event.type == pygame.QUIT) or (event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE):
                 pygame.quit()
                 sys.exit()
-            # ----键盘操作
+            
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_LEFT or event.key == ord('a'):
                     blank_cell_idx = moveL(game_board, blank_cell_idx, num_cols)
@@ -152,7 +142,7 @@ def main():
                     blank_cell_idx = moveU(game_board, blank_cell_idx, num_rows, num_cols)
                 elif event.key == pygame.K_DOWN or event.key == ord('s'):
                     blank_cell_idx = moveD(game_board, blank_cell_idx, num_cols)
-            # ----鼠标操作
+            
             elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
                 x, y = pygame.mouse.get_pos()
                 x_pos = x // cell_width
@@ -166,11 +156,11 @@ def main():
                     blank_cell_idx = moveU(game_board, blank_cell_idx, num_rows, num_cols)
                 elif idx == blank_cell_idx-num_cols:
                     blank_cell_idx = moveD(game_board, blank_cell_idx, num_cols)
-        # --判断游戏是否结束
+        
         if isGameOver(game_board, size):
             game_board[blank_cell_idx] = num_cells - 1
             is_running = False
-        # --更新屏幕
+        
         screen.fill(cfg.BACKGROUNDCOLOR)
         for i in range(num_cells):
             if game_board[i] == -1:
@@ -186,7 +176,7 @@ def main():
             pygame.draw.line(screen, cfg.BLACK, (0, i*cell_height), (game_img_used_rect.width, i*cell_height))
         pygame.display.update()
         clock.tick(cfg.FPS)
-    # 游戏结束界面
+    
     ShowEndInterface(screen, game_img_used_rect.width, game_img_used_rect.height)
 
 

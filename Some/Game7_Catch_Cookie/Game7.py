@@ -1,9 +1,3 @@
-'''
-Created on Mar 30, 2021
-
-@author: martinyanev
-'''
-
 import os 
 import cfg
 import sys
@@ -12,7 +6,7 @@ import random
 from modules import *
 from PIL.ImageChops import screen
 
-
+#Khởi tạo
 def initGame():
 
     pygame.init()
