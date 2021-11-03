@@ -57,7 +57,7 @@ def main():
         screen.blit(game_images['background'], (0,0))
         
         
-        countdown_text = 'Count down: ' + str((90000 - pygame.time.get_ticks()) // 60000) + ":" + str((90000 - pygame.time.get_ticks()) // 1000 % 60).zfill(2)
+        countdown_text = 'Count down: ' + str((30000 - pygame.time.get_ticks()) // 60000) + ":" + str((30000 - pygame.time.get_ticks()) // 1000 % 60).zfill(2)
         countdown_text = font.render(countdown_text, True, (0,0,0))
         countdown_rect = countdown_text.get_rect()
         countdown_rect.topright = [cfg.SCREENSIZE[0]-30, 5]
@@ -103,7 +103,7 @@ def main():
         score_rect.topleft = [5, 5]
         screen.blit(score_text, score_rect)
         
-        if pygame.time.get_ticks() >= 90000:
+        if pygame.time.get_ticks() >= 30000:
             break
         
         pygame.display.flip()
@@ -120,10 +120,3 @@ if __name__ == '__main__':
     while main():
         pass
         
-        
-
-            
-            
-            
-            
-            
